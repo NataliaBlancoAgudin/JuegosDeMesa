@@ -1,0 +1,42 @@
+/* Hoja de estilos generales */
+/*ESPECIFICACION: 001*/
+body {
+    font-family: Arial, sans-serif;
+    margin: 2rem;
+    background-color: #f7f7f7;
+    text-align: center;
+    color: #333;
+}
+
+/* Encabezado */
+/*ESPECIFICACION: 002*/
+header h1 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+}
+
+/* Botón de los juegos (pantalla de inicio)*/
+/*ESPECIFICACION: 002*/
+main button {
+    padding: 1em 2em;
+    font-size: 1.125rem; /* ≈18px */
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 0.5em;
+    cursor: pointer;
+}
+
+/* Boton de los juegos (pantalla de inicio) cuando esta el cursor*/
+/*ESPECIFICACION: 002*/
+main button:hover {
+    background-color: #45a049;
+}
+
+/* Pie de página */
+/*ESPECIFICACION: 001*/
+footer {
+    margin-top: 3rem;
+    font-size: 0.875rem; 
+    color: #666;
+}

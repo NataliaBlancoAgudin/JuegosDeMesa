@@ -3,6 +3,7 @@
 <html lang="es">
 
 <!-- Datos que describen el documento -->
+
 <head>
     <meta charset="UTF-8"> <!-- Codificación-->
     <title>Juegos de mesa</title> <!-- Título -->
@@ -16,9 +17,39 @@
 <!-- Datos de la página -->
 
 <body>
+    <header>
+        <h1>La cuenta</h1>
+    </header>
 
-    <h1>La cuenta</h1>
+    <main>
+        <!-- Sección para añaidr jugadores -->
+         <section>
+            <h2>Jugadores</h2>
+            <form>
+                <label>Nombre:
+                    <input type="text" name="nombre"/>
+                </label>
+                <button type="submit">Añadir jugador</button>
+            </form>
+            <!-- Listado de los jugadores -->
+            <ul>
 
+            </ul>
+         </section>
+
+         <section>
+            <h2>Cartas</h2>
+            <button type="button" data-precio="200">Croquetas (200)</button>
+            <button type="button" data-precio="150">Patatas bravas (150)</button>
+            <button type="button" data-precio="60">Vino (60)</button>
+         </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Juegos de mesa</p>
+    </footer>
+
+    <script src="js/la-cuenta.js"></script>
 </body>
 
 </html>

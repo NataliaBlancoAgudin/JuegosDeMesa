@@ -15,10 +15,32 @@ header h1 {
     margin-bottom: 2rem;
 }
 
+/* Encabezado 2 */
+/* ESPECIFICACION: 001*/
+h2 {
+    font-size:1.5rem;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
+/* Formulario */
+/* ESPECIFICACION: 001*/
+form {
+    margin-bottom: 1.5rem;
+}
+
+/* Caja de texto */
+/* ESPECIFICACION: 001*/
+input {
+    padding: 0.5rem;
+    font-size: 1rem;
+}
+
 /* Botón de los juegos (pantalla de inicio)*/
 /*ESPECIFICACION: 002*/
 main button {
     padding: 1em 2em;
+    margin: 0.5rem;
     font-size: 1.125rem; /* ≈18px */
     background-color: #4caf50;
     color: white;
@@ -39,4 +61,15 @@ footer {
     margin-top: 3rem;
     font-size: 0.875rem; 
     color: #666;
+}
+
+/* Listas */
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    margin: 0.5em 0;
+    font-size: 1.125rem;
 }

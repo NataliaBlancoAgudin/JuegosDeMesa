@@ -28,6 +28,22 @@ function mostrarJugadores() {
     });
 }
 
+// Funcion para guardar la partida
+function guardarPartida() {
+    localStorage.setItem("jugadores", JSON.stringify(jugadores));
+}
+
+// Funcion para cargar partida al inciar la página
+function cargarPartida() {
+    const datos = localStorage.getItem("jugadores");
+    if(datos) {
+        const jugadoresGuardados = JSON.parse(datos);
+        jugadores.length = 0;
+        jugadores.push(...jugadoresGuardados);
+        mostrarJugadores();
+    }
+}
+
 // Evento para añadir jugadores
 formulario.addEventListener("submit", (evento) => {
     evento.preventDefault();
@@ -43,7 +59,6 @@ formulario.addEventListener("submit", (evento) => {
 botonesCartas.forEach(boton => {
     boton.addEventListener("click", () => {
         const precio = parseInt(boton.getAttribute("data-precio"), 10);
-        console.log("Se ha hecho click en un boton " );
 
         jugadores.forEach(jugador => {
             if(jugador.seleccionado){

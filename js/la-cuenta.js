@@ -26,22 +26,8 @@ function mostrarJugadores() {
         elemento.appendChild(botonSeleccion);
         listaJugadores.append(elemento);
     });
-}
 
-// Funcion para guardar la partida
-function guardarPartida() {
-    localStorage.setItem("jugadores", JSON.stringify(jugadores));
-}
-
-// Funcion para cargar partida al inciar la página
-function cargarPartida() {
-    const datos = localStorage.getItem("jugadores");
-    if(datos) {
-        const jugadoresGuardados = JSON.parse(datos);
-        jugadores.length = 0;
-        jugadores.push(...jugadoresGuardados);
-        mostrarJugadores();
-    }
+    guardarPartida(); // Guardamos cada vez que se actualiza la lista
 }
 
 // Evento para añadir jugadores
@@ -71,3 +57,22 @@ botonesCartas.forEach(boton => {
         mostrarJugadores();
     });
 });
+
+// Cargar partida al iniar
+cargarPartida();
+
+// Funcion para guardar la partida
+function guardarPartida() {
+    localStorage.setItem("jugadores", JSON.stringify(jugadores));
+}
+
+// Funcion para cargar partida al inciar la página
+function cargarPartida() {
+    const datos = localStorage.getItem("jugadores");
+    if(datos) {
+        const jugadoresGuardados = JSON.parse(datos);
+        jugadores.length = 0;
+        jugadores.push(...jugadoresGuardados);
+        mostrarJugadores();
+    }
+}

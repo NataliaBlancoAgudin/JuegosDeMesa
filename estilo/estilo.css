@@ -63,13 +63,37 @@ footer {
     color: #666;
 }
 
-/* Listas */
-ul {
-    list-style-type: none;
-    padding: 0;
+/* Tabla jugadores */
+table {
+    width: 80%;
+    border-collapse: collapse;
+    margin: 1em auto;
+    text-align: center;
 }
 
-li {
-    margin: 0.5em 0;
-    font-size: 1.125rem;
+caption {
+    font-weight: bold;
+    margin-bottom: 0.5em;
+}
+
+th, td{
+    border: 0.1em solid #333;
+    padding: 0.5em;
+}
+
+button {
+    border: none;
+    background-color: #4caf50;
+    color: white;
+    padding: 0.4em 0.8em;
+    cursor: pointer;
+    border-radius: 0.3em;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+th:hover {
+    background-color: #f2f2f2;
 }

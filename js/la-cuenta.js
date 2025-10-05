@@ -4,27 +4,43 @@ const jugadores = [];
 // Seleccion de elementos
 const formulario = document.querySelector("form");
 const inputNombre = document.querySelector("input[name='nombre']");
-const listaJugadores = document.querySelector("ul");
+const listaJugadores = document.querySelector("tbody");
 const botonesCartas = document.querySelectorAll("main section:last-of-type button");
 
 // Funcion para actualizar la lista de jugadores en pantalla
 function mostrarJugadores() {
     listaJugadores.innerHTML = "";
     jugadores.forEach((jugador, index) => {
-        const elemento = document.createElement("li");
-        elemento.textContent = `${jugador.nombre} - Dinero: ${jugador.dinero}€`;
+        const fila = document.createElement("tr");
 
-        // Botones para seleccionar a quien aplicar la carta
+        // Columna: nombre
+        const celdaNombre = document.createElement("td");
+        celdaNombre.textContent = jugador.nombre;
+
+        // Columna dinero
+        const celdaDinero = document.createElement("td");
+        celdaDinero.textContent = `${jugador.dinero}€`;
+
+        // Columna: acción (botón)
+        const celdaAccion = document.createElement("td");
         const botonSeleccion = document.createElement("button");
-        botonSeleccion.textContent = "Seleccionar";
-        botonSeleccion.addEventListener("click", () =>{
+        botonSeleccion.textContent = jugador.seleccionado ? "Seleccionado" : "Seleccionar";
+        botonSeleccion.addEventListener("click", () => {
             jugador.seleccionado = !jugador.seleccionado;
-            botonSeleccion.style.background = jugador.seleccionado ? "#2196F3" : "#4caf50";
-
+            mostrarJugadores();
         });
+        celdaAccion.appendChild(botonSeleccion);
 
-        elemento.appendChild(botonSeleccion);
-        listaJugadores.append(elemento);
+        // Colores según estado
+        if(jugador.dinero === 0){
+            fila.style.color = "red";
+            fila.style.opacity = "0.6";
+        } else if(jugador.seleccionado){
+            fila.style.background = "lightblue";
+        }
+
+        fila.append(celdaNombre, celdaDinero, celdaAccion);
+        listaJugadores.appendChild(fila);
     });
 
     guardarPartida(); // Guardamos cada vez que se actualiza la lista

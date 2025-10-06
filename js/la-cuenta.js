@@ -1,13 +1,22 @@
+// -----------------------------
 // Datos de la partida
+// -----------------------------
 const jugadores = [];
 
-// Seleccion de elementos
+// -----------------------------
+// Selección de elementos
+// -----------------------------
 const formulario = document.querySelector("form");
 const inputNombre = document.querySelector("input[name='nombre']");
 const listaJugadores = document.querySelector("tbody");
-const botonesCartas = document.querySelectorAll("main section:last-of-type button");
 
-// Funcion para actualizar la lista de jugadores en pantalla
+// Calculadora
+const outputCalc = document.querySelector("main section:nth-of-type(2) output");
+const botonesCalc = document.querySelectorAll("main section:nth-of-type(2) button");
+
+// -----------------------------
+// Mostrar jugadores en tabla
+// -----------------------------
 function mostrarJugadores() {
     listaJugadores.innerHTML = "";
     jugadores.forEach((jugador, index) => {
@@ -46,38 +55,9 @@ function mostrarJugadores() {
     guardarPartida(); // Guardamos cada vez que se actualiza la lista
 }
 
-// Evento para añadir jugadores
-formulario.addEventListener("submit", (evento) => {
-    evento.preventDefault();
-    const nombre = inputNombre.value.trim();
-    if(nombre) {
-        jugadores.push({ nombre: nombre, dinero: 1400, seleccionado: false});
-        inputNombre.value = "";
-        mostrarJugadores();
-    }
-});
-
-// Evento para aplicar cartas
-botonesCartas.forEach(boton => {
-    boton.addEventListener("click", () => {
-        const precio = parseInt(boton.getAttribute("data-precio"), 10);
-
-        jugadores.forEach(jugador => {
-            if(jugador.seleccionado){
-                jugador.dinero -= precio;
-                jugador.seleccionado = false; // Quitar de seleccinado
-                if(jugador.dinero < 0) jugador.dinero = 0;
-            }
-        });
-
-        mostrarJugadores();
-    });
-});
-
-// Cargar partida al iniar
-cargarPartida();
-
-// Funcion para guardar la partida
+// -----------------------------
+// Guardar / Cargar partida
+// -----------------------------
 function guardarPartida() {
     localStorage.setItem("jugadores", JSON.stringify(jugadores));
 }
@@ -92,3 +72,58 @@ function cargarPartida() {
         mostrarJugadores();
     }
 }
+
+// Cargar partida al iniar
+cargarPartida();
+
+// -----------------------------
+// Añadir jugador
+// -----------------------------
+formulario.addEventListener("submit", (evento) => {
+    evento.preventDefault();
+    const nombre = inputNombre.value.trim();
+    if(nombre) {
+        jugadores.push({ nombre: nombre, dinero: 1400, seleccionado: false});
+        inputNombre.value = "";
+        mostrarJugadores();
+    }
+});
+
+// -----------------------------
+// Lógica de calculadora
+// -----------------------------
+let expresion = "";
+
+botonesCalc.forEach(boton => {
+    boton.addEventListener("click", () => {
+        const valor = boton.textContent;
+
+        if (valor === "C") {
+            expresion = "";
+            outputCalc.value = "0";
+        } else if (valor === "=") {
+            try {
+                const resultado = eval(expresion);
+                outputCalc.value = resultado;
+
+                // Aplicar al jugador seleccionado
+                jugadores.forEach(jugador => {
+                    if (jugador.seleccionado) {
+                        jugador.dinero += resultado;
+                        if (jugador.dinero < 0) jugador.dinero = 0;
+                        jugador.seleccionado = false;
+                    }
+                });
+
+                mostrarJugadores();
+                expresion = "";
+            } catch {
+                outputCalc.value = "Error";
+                expresion = "";
+            }
+        } else {
+            expresion += valor;
+            outputCalc.value = expresion;
+        }
+    });
+});

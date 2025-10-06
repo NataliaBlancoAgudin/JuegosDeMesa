@@ -77,6 +77,39 @@ function cargarPartida() {
 cargarPartida();
 
 // -----------------------------
+// Efecto visual del cambio de saldo
+// -----------------------------
+function mostrarCambioVisual(nombreJugador, cambio) {
+    const filas = document.querySelectorAll("tbody tr");
+
+    filas.forEach(fila => {
+        if (fila.firstChild.textContent === nombreJugador) {
+            const celdaDinero = fila.children[1];
+            const indicador = document.createElement("span");
+
+            const signo = cambio > 0 ? "+" : "";
+            indicador.textContent = ` (${signo}${cambio}€)`;
+            indicador.style.color = cambio >= 0 ? "green" : "red";
+            indicador.style.marginLeft = "0.5em";
+            indicador.style.opacity = "1";
+            indicador.style.transition = "opacity 2s ease-out";
+
+            celdaDinero.appendChild(indicador);
+
+            // Desaparece gradualmente
+            setTimeout(() => {
+                indicador.style.opacity = "0";
+            }, 200);
+
+            // Elimina del DOM tras desaparecer
+            setTimeout(() => {
+                indicador.remove();
+            }, 2200);
+        }
+    });
+}
+
+// -----------------------------
 // Añadir jugador
 // -----------------------------
 formulario.addEventListener("submit", (evento) => {
@@ -109,13 +142,22 @@ botonesCalc.forEach(boton => {
                 // Aplicar al jugador seleccionado
                 jugadores.forEach(jugador => {
                     if (jugador.seleccionado) {
-                        jugador.dinero += resultado;
+                        const cambio = resultado;
+                        jugador.dinero += cambio;
                         if (jugador.dinero < 0) jugador.dinero = 0;
                         jugador.seleccionado = false;
+
+                        jugadorModificado = jugador.nombre;
+                        cambioRealizado = cambio;
                     }
                 });
 
                 mostrarJugadores();
+
+                if(jugadorModificado){
+                    mostrarCambioVisual(jugadorModificado, cambioRealizado);
+                }
+
                 expresion = "";
             } catch {
                 outputCalc.value = "Error";
